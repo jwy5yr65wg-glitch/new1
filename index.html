@@ -95,13 +95,13 @@
 .card{perspective:1200px;filter:drop-shadow(0 13px 10px #000b) drop-shadow(0 0 9px #e1aa5744)}
 .card .face{border:0!important;border-radius:8%!important;box-shadow:0 0 0 1px #b48d47,0 9px 22px #000d!important;background-position:center!important;background-size:100% 100%!important;overflow:hidden}
 .card .face::before,.card .face::after{display:none!important}
-.card .back{background-image:url('card0.webp')!important}
-.card .front{background-image:var(--card-image,url('card1.webp'))!important;filter:drop-shadow(0 0 8px var(--tone,#f5d077));}
+.card .back{background-image:url('assets/card0.webp')!important}
+.card .front{background-image:var(--card-image,url('assets/card1.webp'))!important;filter:drop-shadow(0 0 8px var(--tone,#f5d077));}
 .card .front strong,.card .front span,.card .front .gem,.card .front .crest{display:none!important}
 .card .inner{transform-style:preserve-3d}.card .peek{border:0!important;box-shadow:0 0 18px var(--peek-color,#e0ac70)!important;border-radius:8%!important;overflow:hidden}
-.card .peek .peek-window{border:0!important;box-shadow:none!important;border-radius:8%!important;background-image:var(--peek-image,url('card7.webp'))!important;background-size:100% 100%!important;background-position:center!important}
+.card .peek .peek-window{border:0!important;box-shadow:none!important;border-radius:8%!important;background-image:var(--peek-image,url('assets/card7.webp'))!important;background-size:100% 100%!important;background-position:center!important}
 .card .peek .peek-window::before,.card .peek .peek-window::after,.card .peekgem,.card .peekword{display:none!important}
-.card .peek .peek-window.rainbow-peek{background-image:url('card7.webp')!important;background-size:100% 100%!important}
+.card .peek .peek-window.rainbow-peek{background-image:url('assets/card7.webp')!important;background-size:100% 100%!important}
 .card.dragging{filter:drop-shadow(-12px 14px 11px #000e) drop-shadow(0 0 10px #ffd66c66)}
 .cardwrap{max-width:188px}.rushcard{width:min(64vw,220px)}
 .chip{position:relative;height:94px;min-width:58px;flex-basis:58px;background:#08060b!important;border:0!important;padding:0!important;overflow:hidden;border-radius:5px;box-shadow:0 0 7px #e5a54e70}
@@ -216,36 +216,47 @@
   display: none !important;
 }
 .card .back {
-  background-image: url('card0.webp') !important;
+  background-image: url('assets/card0.webp') !important;
   background-size: 100% 100% !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
 }</style><style id="card-image-final-fix">
 .card .front {
-  background-image: var(--card-image, url('card1.webp')) !important;
+  background-image: var(--card-image, url('assets/card1.webp')) !important;
   background-size: 100% 100% !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
 }
 .card .back {
-  background-image: url('card0.webp') !important;
+  background-image: url('assets/card0.webp') !important;
   background-size: 100% 100% !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
 }
+</style><style id="online-rank-style">
+.online-line{display:flex;justify-content:space-between;gap:10px;padding:11px 4px;border-bottom:1px solid #745637;font-size:13px}
+.online-line b{color:#ffdf9c}.online-line.me{background:#5a432755;border-radius:7px}
+.online-status{font-size:12px;color:#d9c39a;margin:8px 0}
 </style></head><body><main class="app">
 <header><div><div class="tag">PRIVATE CASINO • DEMO</div><h1>RUSH</h1></div><button class="pill" id="sound">♪ ON</button></header>
 <div class="panel"><div class="row"><span class="muted">YOUR COINS</span><span class="tag">ROYAL SWIPE v15</span></div><div class="balance" id="coins">500,000</div><div class="note" id="msg">BETを選んでカードを配ろう</div></div>
 <section id="normal"><div class="panel"><div class="row"><b>BET</b><b id="betLabel">1,000</b></div><div class="bets" id="bets"></div><div class="custom-bet"><label for="customBet">自由BET（1コイン〜所持コイン全額）</label><input id="customBet" type="number" inputmode="numeric" min="1" step="1" placeholder="BET額を入力"><button id="applyBet" type="button">設定</button></div><button class="mainbtn" id="deal">DEAL CARDS</button></div><div class="stage"><div class="tag">FLIP THE FATE</div><h2>CHOOSE YOUR CARD</h2><div class="hint">好きな順番で左右にスワイプ。半分超えで確定！</div><div class="cards"><div class="cardwrap"><div class="cardname">DIVIDE / ÷</div><div id="left"></div><div class="calc" id="leftCalc">—</div></div><div class="cardwrap"><div class="cardname">MULTIPLY / ×</div><div id="right"></div><div class="calc" id="rightCalc">—</div></div></div><div class="panel"><div class="muted" style="font-size:12px">PAYOUT CALCULATION</div><div id="formula" class="calc">カードをめくると計算を表示</div><div id="result" class="result">—</div></div></div></section>
 <section id="rush" class="hidden"><div class="stage"><div class="tag">✦ ROYAL RUSH CHAMBER ✦</div><h2>✦ RUSH ✦</h2><div class="muted">CONTINUATION 90% · PREMIUM 1/8192</div></div><div class="panel"><div class="row"><div><div class="muted">HELD PAYOUT</div><div class="result" id="held">0</div></div><div style="text-align:right"><div class="muted">CHAIN</div><div class="result" id="chain">0</div></div></div><div class="tag" style="margin-top:14px">COLLECTED CARDS</div><div class="history" id="history"></div></div><div class="stage"><div class="hint" id="rushHint">スワイプして継続を決めろ</div><div id="rushCard" class="rushcard"></div><button id="rushNext" class="mainbtn alt hidden">NEXT CARD</button></div></section>
-<div class="footer"><button id="lastResult">LAST RUSH RESULT</button><button id="reset">RESET DATA</button><button id="info">RULES</button><button id="personalRankBtn">🏆 MY RANKING</button></div><p class="note">v17 PERSONAL RANKING：仮想コインのみ。個人ランキングはこの端末内に保存。全国ランキング・オンライン保存は未実装。カード抽選はめくる前に確定します。</p></main>
+<div class="footer"><button id="lastResult">LAST RUSH RESULT</button><button id="reset">RESET DATA</button><button id="info">RULES</button><button id="personalRankBtn">🏆 MY RANKING</button><button id="onlineRankBtn">🌐 ONLINE RANKING</button></div><p class="note">v17 PERSONAL RANKING：仮想コインのみ。個人ランキングはこの端末内に保存。オンラインランキングは身内向けの簡易共有版。カード抽選はめくる前に確定します。</p></main>
 <div id="rushResultModal" class="result-modal hidden"><div class="result-sheet"><div class="tag">ROYAL RUSH • RESULT</div><h2>RUSH RESULT</h2><div id="resultSummary"></div><div id="resultCards" class="result-card-list"></div><button class="mainbtn" id="closeResult">結果を閉じる</button></div></div><div id="personalRankingModal" class="result-modal hidden"><div class="result-sheet">
 <div class="tag">ROYAL RUSH • MY RECORDS</div><h2>🏆 MY RANKING</h2>
 <div id="personalStats" class="result-stats"></div>
 <div class="rank-tabs"><button id="sortCoins" class="sel">最高残高</button><button id="sortPayout">RUSH獲得</button><button id="sortChain">連チャン</button></div>
 <div id="personalRankingRows" class="personal-rows"></div>
 <p class="muted">この端末のSafariに保存される個人記録です。全国ランキングではありません。</p>
-<button class="mainbtn" id="closePersonalRank">閉じる</button></div></div><div id="overlay" class="blackout"><div id="overlayBody"></div></div><audio id="rushBgm" src="assets/gloria2.mp3" preload="auto" loop playsinline></audio>
+<button class="mainbtn" id="closePersonalRank">閉じる</button></div></div><div id="onlineRankModal" class="result-modal hidden"><div class="result-sheet">
+<div class="tag">ROYAL RUSH • ONLINE</div><h2>🌐 RANKING</h2>
+<div class="online-status" id="onlineStatus">接続準備中…</div>
+<div class="row"><span class="muted">プレイヤー名</span><button class="pill" id="changeOnlineName">名前を変更</button></div>
+<div class="rank-tabs"><button data-rank="coins" class="sel">所持コイン</button><button data-rank="chain">最高継続</button><button data-rank="payout">一撃獲得</button></div>
+<div id="onlineRows" class="personal-rows"></div>
+<p class="note">友達用ランキング。匿名ログインで登録されます（ブラウザのデータを消すと別ユーザーになる場合があります）。名前は公開されます。記録の改ざん防止機能はありません。</p>
+<button class="mainbtn" id="closeOnlineRank">閉じる</button></div></div><div id="overlay" class="blackout"><div id="overlayBody"></div></div><audio id="rushBgm" src="assets/gloria2.mp3" preload="auto" loop playsinline></audio>
 
 <script>
 (()=>{'use strict';
@@ -260,7 +271,7 @@ let rainbow=preview==='🌈' && !hintColor;
 let color=hintColor||(['#ff5475','#f2c85b','#5ef1a2','#58b5ff','#b87aff'][Math.floor(Math.random()*5)]);
 card.style.setProperty('--peek-color',color);
 let previewIndex=rainbow?7:(color===colors[0]?1:color===colors[1]?2:color===colors[2]?3:color===colors[3]?4:color===colors[4]?5:color===colors[5]?6:Math.floor(Math.random()*6)+1);
-card.style.setProperty('--peek-image',`url('card${previewIndex}.webp')`);
+card.style.setProperty('--peek-image',`url('assets/card${previewIndex}.webp')`);
 windowEl.classList.toggle('rainbow-peek',rainbow);
 windowEl.querySelector('.peekword').textContent=rainbow?'RUSH!?':'CHANCE!?';
 function move(p){progress=Math.max(0,Math.min(1,p));inner.style.transition='none';inner.style.transform=`rotateY(${progress*180}deg) rotateZ(${progress*-3}deg)`;card.classList.toggle('dragging',progress>0);
@@ -276,7 +287,7 @@ card.addEventListener('pointermove',e=>{if(!start||done)return;let d=Math.max(Ma
 card.addEventListener('pointerup',()=>{if(!start)return;start=null;if(progress>=.5)finish();else{inner.style.transition='transform .25s ease';move(0)}});
 card.addEventListener('pointercancel',()=>{start=null;if(!done)move(0)});
 return{finish,card}}
-function setFront(card,label,color,glow,sub=''){let f=card.querySelector('.front');f.style.setProperty('--tone',color);f.style.setProperty('--glow',glow);let rainbow=label==='RUSH';f.classList.toggle('rainbow',rainbow);let idx=label==='RUSH'?7:label==='LOSE'?1:den.indexOf(Number(label.split('/')[1]))+1;f.style.setProperty('--card-image',`url('card${Math.max(1,idx)}.webp')`);f.innerHTML=''}
+function setFront(card,label,color,glow,sub=''){let f=card.querySelector('.front');f.style.setProperty('--tone',color);f.style.setProperty('--glow',glow);let rainbow=label==='RUSH';f.classList.toggle('rainbow',rainbow);let idx=label==='RUSH'?7:label==='LOSE'?1:den.indexOf(Number(label.split('/')[1]))+1;f.style.setProperty('--card-image',`url('assets/card${Math.max(1,idx)}.webp')`);f.innerHTML=''}
 function normalResult(){if(!round||!round.open.every(Boolean))return;busy=true;let pay=Math.floor(round.bet*den[round.b]/den[round.a]);data.coins+=pay;save();$('formula').textContent=`${fmt(round.bet)} ÷ ${den[round.a]} × ${den[round.b]} = ${fmt(pay)}`;$('result').textContent=`${fmt(pay)} COINS / ${pay-round.bet>=0?'+':''}${fmt(pay-round.bet)}`;$('result').classList.toggle('loss',pay<round.bet);msg(pay<round.bet?'LOSE — 次の勝負へ':pay===round.bet?'DRAW — BET返却':'WIN — コイン獲得！');round=null;busy=false;if(data.coins<1000){gameover()}else draw()}
 function deal(){if(busy||data.rush||data.coins<bet||bet<1)return;musicUnlock();busy=true;data.coins-=bet;save();$('coins').textContent=fmt(data.coins);$('deal').disabled=true;let enter=Math.random()<.05,side=Math.random()<.5?'LEFT':'RIGHT';// 左は割り算、右は掛け算。通常時の通常配当期待値は約83.7%（RUSH突入分は別）
 round={bet,a:pick([35,22,16,12,9,6]),b:pick([9,10,13,17,23,28]),open:[false,false],enter,side};$('formula').textContent='カードをスワイプしてめくろう';$('result').textContent='—';$('leftCalc').textContent='—';$('rightCalc').textContent='—';msg('左右のカードを好きな順番でめくろう');beep(380,.1);
@@ -323,7 +334,7 @@ async function blackout(allin=false,premium=false){
  }
 }
 async function enterRush(amount,side){msg('……');data.rush={bet:amount,held:0,history:[],pending:null,side};round=null;save();await blackout(amount===500000);busy=false;draw();newRushCard()}
-function renderRush(){let r=data.rush;if(!r)return;$('held').textContent=fmt(r.held||0);$('chain').textContent=String(r.history.filter(h=>h.type==='continue'||h.label==='🌈×2').length).padStart(2,'0');$('history').innerHTML=r.history.map(h=>`<div class="chip ${h.type==='lose'?'lose':h.type==='revive'?'revive':''}"><img alt="" src="card${h.label==='🌈×2'?7:h.label==='LOSE'?1:h.label.startsWith('1/')?den.indexOf(Number(h.label.split('/')[1]))+1:7}.webp"><span>${h.label}</span></div>`).join('')||'<span class="muted">まだカードなし</span>';$('rushHint').textContent=r.pending?'めくって運命を決めろ':'次のカードを引こう'}
+function renderRush(){let r=data.rush;if(!r)return;$('held').textContent=fmt(r.held||0);$('chain').textContent=String(r.history.filter(h=>h.type==='continue'||h.label==='🌈×2').length).padStart(2,'0');$('history').innerHTML=r.history.map(h=>`<div class="chip ${h.type==='lose'?'lose':h.type==='revive'?'revive':''}"><img alt="" src="assets/card${h.label==='🌈×2'?7:h.label==='LOSE'?1:h.label.startsWith('1/')?den.indexOf(Number(h.label.split('/')[1]))+1:7}.webp"><span>${h.label}</span></div>`).join('')||'<span class="muted">まだカードなし</span>';$('rushHint').textContent=r.pending?'めくって運命を決めろ':'次のカードを引こう'}
 function newRushCard(){let r=data.rush;if(!r||busy)return;$('rushNext').classList.add('hidden');if(!r.pending){let cont=Math.random()<.9;let revival=!cont&&Math.random()<.1;r.pending={cont,revival,rare:cont&&Math.random()<1/8192,index:pick([1,2,3,6,28,60])};save()}renderRush();createCard('rushCard',async card=>{busy=true;let p=r.pending;if(p.cont){if(p.rare){setFront(card,'RUSH','#ffe27d','#9835bc','×2 PREMIUM');r.held*=2;r.history.push({type:'revive',label:'🌈×2'});r.pending=null;save();await sleep(450);await blackout(false,true);$('rushHint').textContent='1 / 8192 !! PREMIUM RUSH';}else{let gain=Math.floor(r.bet/den[p.index]);r.held+=gain;r.history.push({type:'continue',label:'1/'+den[p.index]});setFront(card,'1/'+den[p.index],colors[p.index],glows[p.index],'+'+fmt(gain));beep(1050,.4);$('rushHint').textContent='CONTINUE! +'+fmt(gain);}r.pending=null;save();renderRush();await sleep(700);$('rushNext').classList.remove('hidden');busy=false}else{setFront(card,'LOSE','#ff7680','#171717','RUSH END?');r.history.push({type:'lose',label:'LOSE'});r.pending=null;save();renderRush();$('rushHint').textContent='LOSE...';await sleep(1000);if(p.revival){await blackout(false);r.history.push({type:'revive',label:'REVIVAL'});save();$('rushHint').textContent='REVIVAL!! 継続！';renderRush();$('rushNext').classList.remove('hidden');busy=false}else{let payout=r.held||0;
  let record={bet:r.bet,payout,net:payout-r.bet,chain:r.history.filter(h=>h.type==='continue'||h.label==='🌈×2').length,history:r.history.map(h=>({...h})),date:new Date().toLocaleString('ja-JP')};
  data.lastRushResult=record;data.coins+=payout;data.rush=null;musicStop();save();savePersonalRecord(record);msg('RUSH終了！ +'+fmt(payout)+' COINS');busy=false;draw();$('formula').textContent='RUSH獲得コイン';$('result').textContent='+'+fmt(payout)+' COINS';showRushResult();if(data.coins<1){$('closeResult').dataset.gameover='1'}}}},Math.random()<.3?'🌈':'✦',Math.random()<.6?colors[Math.floor(Math.random()*6)]:null)}
@@ -331,7 +342,7 @@ function showRushResult(){
  const r=data.lastRushResult;if(!r){msg('まだRUSHの結果はありません');return}
  const plus=r.net>=0?'+':'';
  $('resultSummary').innerHTML=`<div class="result-stats"><div><small>BET</small><b>${fmt(r.bet)}</b></div><div><small>獲得コイン</small><b>${fmt(r.payout)}</b></div><div><small>差し引き</small><b class="${r.net<0?'loss':''}">${plus}${fmt(r.net)}</b></div><div><small>CHAIN</small><b>${r.chain}</b></div></div><p class="muted">${r.date||''}</p>`;
- $('resultCards').innerHTML=r.history.map((h,i)=>`<div class="result-item"><span>${i+1}</span><img src="card${h.label==='🌈×2'?7:h.label==='LOSE'?1:h.label.startsWith('1/')?den.indexOf(Number(h.label.split('/')[1]))+1:7}.webp" alt=""><b>${h.label}</b><small>${h.type==='continue'?'継続':h.label==='🌈×2'?'2倍':h.label==='REVIVAL'?'復活':'終了'}</small></div>`).join('');
+ $('resultCards').innerHTML=r.history.map((h,i)=>`<div class="result-item"><span>${i+1}</span><img src="assets/card${h.label==='🌈×2'?7:h.label==='LOSE'?1:h.label.startsWith('1/')?den.indexOf(Number(h.label.split('/')[1]))+1:7}.webp" alt=""><b>${h.label}</b><small>${h.type==='continue'?'継続':h.label==='🌈×2'?'2倍':h.label==='REVIVAL'?'復活':'終了'}</small></div>`).join('');
  $('rushResultModal').classList.remove('hidden');
 }
 $('lastResult').onclick=showRushResult;
@@ -369,6 +380,65 @@ $('applyBet').onclick=()=>{
 function gameover(){if(data.coins>=1)return;musicStop();alert('GAME OVER！ コインとランキング記録をリセットし、500,000 COINSから再スタート！');data={coins:500000,rush:null};round=null;save();msg('NEW GAME — 500,000 COINS');draw()}
 $('deal').onclick=deal;$('rushNext').onclick=()=>{if(!busy)newRushCard()};$('sound').onclick=()=>{sound=!sound;$('sound').textContent=sound?'♪ ON':'♪ OFF';if(!sound){musicStop()}else if(data.rush){musicStart()}else{musicUnlock()}};$('reset').onclick=()=>{if(confirm('コイン・個人ランキング記録をすべて消去して50万枚からやり直す？')){musicStop();localStorage.removeItem(personalKey);data={coins:500000,rush:null};round=null;busy=false;save();location.reload()}};$('info').onclick=()=>alert('通常：BET → 2枚をスワイプ（50%以上で開く）。左で割り算、右で掛け算。RUSH突入5%、継続90%、終了抽選後の復活10%。RUSH中は黒1%・青2%・緑3%・金6%・紫28%・赤60%の振り分けで加算、虹RUSHは1/8192で貯めたコインが2倍。終了時に一括払い戻し。抽選はめくる前に決定。オフライン試作版です。突入演出はMP4動画で再生します。');draw();if(data.rush){$('rushHint').textContent='♪ ONでBGMを再生できます';if(data.rush.pending)newRushCard();else{$('rushNext').classList.remove('hidden');$('rushHint').textContent='RUSH RESUME — 次のカードへ'}}else{['left','right'].forEach(id=>createCard(id,()=>{}))}
 })();
+</script>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import {getFirestore,doc,setDoc,collection,onSnapshot,serverTimestamp} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import {getAuth,signInAnonymously,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+const cfg={apiKey:"AIzaSyD2mQJRxCME83cqcMb_nPyk5WgmLmiHh8E",authDomain:"royal-rush-68979.firebaseapp.com",projectId:"royal-rush-68979",storageBucket:"royal-rush-68979.firebasestorage.app",messagingSenderId:"617280237470",appId:"1:617280237470:web:4e4455f15a4917c800b08f"};
+const $=id=>document.getElementById(id);
+const app=initializeApp(cfg),db=getFirestore(app),auth=getAuth(app);
+const stateKey='rush_swipe_v3',recordKey='rush_v17_personal_records',nameKey='royal_rush_online_name';
+let uid='',name=localStorage.getItem(nameKey)||'',sort='coins',players=[],uploadTimer,unsubscribe=null;
+const number=x=>Number.isFinite(Number(x))?Math.max(0,Math.floor(Number(x))):0;
+const fmt=x=>number(x).toLocaleString('ja-JP');
+const safe=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const status=x=>{$('onlineStatus').textContent=x};
+function stats(){
+ let d={},records=[];try{d=JSON.parse(localStorage.getItem(stateKey))||{}}catch{}
+ try{records=JSON.parse(localStorage.getItem(recordKey))||[]}catch{}
+ if(!Array.isArray(records))records=[];
+ const last=d.lastRushResult||{};
+ return {coins:number(d.coins??500000),chain:Math.max(number(last.chain),...records.map(x=>number(x.chain)),0),payout:Math.max(number(last.payout),...records.map(x=>number(x.payout)),0)};
+}
+function askName(){
+ const v=prompt('ランキングに表示する名前を入力（最大16文字）',name||'PLAYER');
+ if(v===null)return false;
+ const n=v.trim().slice(0,16);
+ if(!n)return false;
+ name=n;localStorage.setItem(nameKey,name);scheduleUpload();return true;
+}
+async function upload(){
+ if(!name||!uid)return;
+ try{await setDoc(doc(db,'rush_rankings',uid),{name,...stats(),updatedAt:serverTimestamp()});status('オンライン接続中 • '+name)}
+ catch(e){status('保存エラー：'+(e.code||e.message))}
+}
+function scheduleUpload(){clearTimeout(uploadTimer);uploadTimer=setTimeout(upload,1000)}
+const originalSet=Storage.prototype.setItem;
+Storage.prototype.setItem=function(k,v){originalSet.call(this,k,v);if(this===localStorage&&(k===stateKey||k===recordKey))scheduleUpload()};
+function render(){
+ const list=[...players].sort((a,b)=>number(b[sort])-number(a[sort])).slice(0,100);
+ $('onlineRows').innerHTML=list.map((p,i)=>`<div class="online-line ${p.id===uid?'me':''}"><span><b>${i+1}位</b> ${safe(p.name||'PLAYER')}${p.id===uid?'（自分）':''}</span><b>${fmt(p[sort])}${sort==='chain'?'連':'枚'}</b></div>`).join('')||'<p class="muted">まだ登録者がいません。</p>';
+ $('onlineRankModal').querySelectorAll('[data-rank]').forEach(b=>b.classList.toggle('sel',b.dataset.rank===sort));
+}
+$('onlineRankBtn').onclick=()=>{$('onlineRankModal').classList.remove('hidden');if(!name)askName();if(name)scheduleUpload();render()};
+$('closeOnlineRank').onclick=()=>$('onlineRankModal').classList.add('hidden');
+$('changeOnlineName').onclick=askName;
+$('onlineRankModal').querySelectorAll('[data-rank]').forEach(b=>b.onclick=()=>{sort=b.dataset.rank;render()});
+onAuthStateChanged(auth,user=>{
+ if(!user){status('匿名ログイン中…');return}
+ if(uid===user.uid)return;
+ uid=user.uid;
+ status('オンライン接続OK • '+(name||'名前を登録してね'));
+ if(unsubscribe)unsubscribe();
+ unsubscribe=onSnapshot(collection(db,'rush_rankings'),snap=>{
+  players=snap.docs.map(d=>({id:d.id,...d.data()}));
+  status(name?'オンライン接続中 • '+name:'接続OK • 名前を登録してね');render();
+ },e=>status('ランキング取得エラー：'+(e.code||e.message)));
+ if(name)scheduleUpload();
+},e=>status('ログインエラー：'+(e.code||e.message)));
+signInAnonymously(auth).catch(e=>status('匿名ログインエラー：'+(e.code||e.message)));
 </script>
 </body>
 </html>
