@@ -339,4 +339,20 @@ $('applyBet').onclick=()=>{
 function gameover(){if(data.coins>=1)return;musicStop();alert('GAME OVER！ コインとランキング記録をリセットし、500,000 COINSから再スタート！');data={coins:500000,rush:null};round=null;save();msg('NEW GAME — 500,000 COINS');draw()}
 $('deal').onclick=deal;$('rushNext').onclick=()=>{if(!busy)newRushCard()};$('sound').onclick=()=>{sound=!sound;$('sound').textContent=sound?'♪ ON':'♪ OFF';if(!sound){musicStop()}else if(data.rush){musicStart()}else{musicUnlock()}};$('reset').onclick=()=>{if(confirm('コイン・個人ランキング記録をすべて消去して50万枚からやり直す？')){musicStop();localStorage.removeItem(personalKey);data={coins:500000,rush:null};round=null;busy=false;save();location.reload()}};$('info').onclick=()=>alert('通常：BET → 2枚をスワイプ（50%以上で開く）。左で割り算、右で掛け算。RUSH突入5%、継続90%、終了抽選後の復活10%。RUSH中は黒1%・青2%・緑3%・金6%・紫28%・赤60%の振り分けで加算、虹RUSHは1/8192で貯めたコインが2倍。終了時に一括払い戻し。抽選はめくる前に決定。オフライン試作版です。突入演出はMP4動画で再生します。');draw();if(data.rush){$('rushHint').textContent='♪ ONでBGMを再生できます';if(data.rush.pending)newRushCard();else{$('rushNext').classList.remove('hidden');$('rushHint').textContent='RUSH RESUME — 次のカードへ'}}else{['left','right'].forEach(id=>createCard(id,()=>{}))}
 })();
-</script></body></html>
+</script><<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const fixImages = () => {
+    document.querySelectorAll('img').forEach(img => {
+      const src = img.getAttribute('src');
+      if (src && src.startsWith('assets/card')) {
+        img.setAttribute('src', src.replace('assets/', ''));
+      }
+    });
+  };
+  fixImages();
+  new MutationObserver(fixImages).observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+});
+</script>/body></html>
