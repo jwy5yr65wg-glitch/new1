@@ -215,7 +215,12 @@
 .card .front::after {
   display: none !important;
 }
-</style></head><body><main class="app">
+.card .back {
+  background-image: url('card0.webp') !important;
+  background-size: 100% 100% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}</style></head><body><main class="app">
 <header><div><div class="tag">PRIVATE CASINO • DEMO</div><h1>RUSH</h1></div><button class="pill" id="sound">♪ ON</button></header>
 <div class="panel"><div class="row"><span class="muted">YOUR COINS</span><span class="tag">ROYAL SWIPE v15</span></div><div class="balance" id="coins">500,000</div><div class="note" id="msg">BETを選んでカードを配ろう</div></div>
 <section id="normal"><div class="panel"><div class="row"><b>BET</b><b id="betLabel">1,000</b></div><div class="bets" id="bets"></div><div class="custom-bet"><label for="customBet">自由BET（1コイン〜所持コイン全額）</label><input id="customBet" type="number" inputmode="numeric" min="1" step="1" placeholder="BET額を入力"><button id="applyBet" type="button">設定</button></div><button class="mainbtn" id="deal">DEAL CARDS</button></div><div class="stage"><div class="tag">FLIP THE FATE</div><h2>CHOOSE YOUR CARD</h2><div class="hint">好きな順番で左右にスワイプ。半分超えで確定！</div><div class="cards"><div class="cardwrap"><div class="cardname">DIVIDE / ÷</div><div id="left"></div><div class="calc" id="leftCalc">—</div></div><div class="cardwrap"><div class="cardname">MULTIPLY / ×</div><div id="right"></div><div class="calc" id="rightCalc">—</div></div></div><div class="panel"><div class="muted" style="font-size:12px">PAYOUT CALCULATION</div><div id="formula" class="calc">カードをめくると計算を表示</div><div id="result" class="result">—</div></div></div></section>
