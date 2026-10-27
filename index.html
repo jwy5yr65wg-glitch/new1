@@ -230,7 +230,7 @@ let rainbow=preview==='🌈' && !hintColor;
 let color=hintColor||(['#ff5475','#f2c85b','#5ef1a2','#58b5ff','#b87aff'][Math.floor(Math.random()*5)]);
 card.style.setProperty('--peek-color',color);
 let previewIndex=rainbow?7:(color===colors[0]?1:color===colors[1]?2:color===colors[2]?3:color===colors[3]?4:color===colors[4]?5:color===colors[5]?6:Math.floor(Math.random()*6)+1);
-card.style.setProperty('--peek-image',`url('assets/card${previewIndex}.webp')`);
+card.style.setProperty('--peek-image',`url('card${previewIndex}.webp')`);
 windowEl.classList.toggle('rainbow-peek',rainbow);
 windowEl.querySelector('.peekword').textContent=rainbow?'RUSH!?':'CHANCE!?';
 function move(p){progress=Math.max(0,Math.min(1,p));inner.style.transition='none';inner.style.transform=`rotateY(${progress*180}deg) rotateZ(${progress*-3}deg)`;card.classList.toggle('dragging',progress>0);
